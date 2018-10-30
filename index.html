@@ -21,9 +21,17 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.13/css/mdb.min.css" rel="stylesheet">
     <link href="./assets/css/easy-autocomplete.min.css" type="text/css" rel="stylesheet">
+    <link href="./assets/css/preloader.css" rel="stylesheet" type="text/css">
     <link href="./assets/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body class="d-flex flex-column justify-content-center">
+<div id="loader-wrapper">
+    <div id="loader"></div>
+
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+
+</div>
 <div class="container">
     <div class="row">
         <div class="col"></div>
@@ -92,7 +100,7 @@
 <script type="text/javascript">
     $.getJSON("https://api.laut.fm/stations", function (stations) {
 
-        //
+        $('body').addClass('loaded');
         var options = {
             data: stations,
             getValue: "name",
