@@ -1,0 +1,58 @@
+<!--
+  ~ Copyright © 2018 Valentin Sickert
+  ~ This work is free. You can redistribute it and/or modify it under the
+  ~ terms of the Do What The Fuck You Want To Public License, Version 2,
+  ~ as published by Sam Hocevar. See the LICENSE file or http://www.wtfpl.net/ 
+  ~ for more details.
+  -->
+
+<!--
+  ~ Created by: Valentin Sickert
+  ~ Date: 29.10.18 23:41
+  ~ Project: cover-display
+  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Valentin Sickert">
+    <title>Title</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<img id="image" src="" alt="">
+
+
+<script src="./assets/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+<script src="./assets/js/functions.js" type="text/javascript"></script>
+<script>
+    let station = $_GET('station');
+    let song_url = "https://api.laut.fm/station/" + station + "/current_song";
+
+    let width = $_GET('width');
+    let height;
+    if ($_GET('height') == null) {
+        console.log()
+        height = width
+    } else {
+        height = $_GET('height');
+    }
+
+    let song_str;
+
+    // getItunesUrl(current.title, current.artist.name)
+    // song.results[0].artworkUrl100
+
+    getCover(song_url);
+    setInterval(getCover(song_url), 2000);
+
+
+</script>
+</body>
+</html>
