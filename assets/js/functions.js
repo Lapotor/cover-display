@@ -33,17 +33,32 @@ function getImageUrl(url, width, height) {
     return imageUrl.replace(/^(http):\/\//gi, "https://")
 }
 
-function getCover(song_url) {
+function coverLoop(song_url, station_img) {
+    setTimeout(function () {
+        getCover(song_url, station_img)
+        coverLoop(song_url, station_img)
+    }, 2000)
+}
+
+function getCover(song_url, station_img) {
     $.getJSON(song_url, function (current) {
         if (song_str != (current.title + " " + current.artist.name))  {
             song_str = current.title + " " + current.artist.name
             $.getJSON(getItunesUrl(current.title, current.artist.name), function (song) {
+                let img_url;
                 if (song.resultCount === 0) {
                     $.getJSON(getItunesUrl(current.title, current.artist.name, true), function (song_ger) {
                         song = song_ger;
-                    })
+                    });
+                    if (song.resultCount === 0) {
+                        img_url = station_img;
+                    } else {
+                        img_url = getImageUrl(song.results[0].artworkUrl100, width, height);
+                    }
+                } else {
+                    img_url = getImageUrl(song.results[0].artworkUrl100, width, height);
                 }
-                $("#image").attr("src", getImageUrl(song.results[0].artworkUrl100, width, height)).attr("alt", current.title + ", " + current.artist.name)
+                $("#image").attr("src", img_url).attr("alt", current.title + ", " + current.artist.name).attr("width", width).attr("height", height)
             })
         }
     })
