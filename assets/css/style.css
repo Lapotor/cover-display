@@ -15,3 +15,9 @@ html {
 body {
     min-height: 100%;
 }
+a {
+    color: #6c757d !important;
+}
+a:hover, a:focus, a:active {
+    color: #212121 !important;
+}
