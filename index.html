@@ -100,6 +100,15 @@
                     </div>
                 </div>
             </div>
+            <div class="custom-control custom-checkbox mb-3">
+                <input type="checkbox" class="custom-control-input" id="onAirShow">
+                <label class="custom-control-label" for="onAirShow">Show if your station is 'On Air' or 'Off Air'</label>
+            </div>
+            <select class="browser-default custom-select hidden" id="position">
+                <option selected disabled hidden>-- Select the display position --</option>
+                <option value="in">In cover</option>
+                <option value="bottom">Below cover</option>
+            </select>
             <hr class="hr">
             <div class="md-form mt-5">
                 <input type="text" id="url" class="form-control" value="" readonly>
@@ -145,17 +154,30 @@
         $("#station").easyAutocomplete(options);
         setTimeout(function () {
             $('#donationModal').modal('show');
-        },5000);
+        }, 5000);
     });
 </script>
 <script type="text/javascript">
-    $(document).on("change paste keyup", "#station, #width, #height", function () {
+    $(document).on("change paste keyup", "#station, #width, #height, #onAirShow, #position", function () {
         if (!$("label[for='url']").hasClass("active")) {
             $("label[for='url']").addClass("active")
         }
         let url = "https://cover.lapotor.de/cover.html?station=" + $("#station").val() + "&width=" + $("#width").val();
         if (!($("#height").val() == null || $("#station").val() == 0 || $("#height").val() == "")) {
             url = url + "&height=" + $("#height").val()
+        }
+        if ($('#onAirShow').is(':checked')) {
+            url = url + "&onair=true";
+            $('#position').removeClass('hidden');
+            if ($('#position').val() != 'null') {
+                if ($('#position').val() == 'in') {
+                    url = url + "&position=in";
+                } else if ($('#position').val() == 'bottom') {
+                    url = url + "&position=bottom";
+                }
+            }
+        } else {
+            $('#position').addClass('hidden');
         }
         if (!($("#width").val() == null || $("#width").val() == 0 || $("#width").val() == "")) {
             $("#width").removeClass("is-invalid")

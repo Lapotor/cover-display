@@ -33,15 +33,37 @@ function getImageUrl(url, width, height) {
     return imageUrl.replace(/^(http):\/\//gi, "https://")
 }
 
+function getLiveStatus(json_song) {
+    if (json_song['live']) {
+        if (live != json_song['live'].toString()) {
+            if (json_song['live'] == true) {
+                $('#live p i').removeClass('notLive').addClass('blink-2');
+                $('#live p span').html('On Air');
+            } else {
+                $('#live p i').removeClass('blink-2').addClass('notLive');
+                $('#live p span').html('Off Air');
+
+            }
+        }
+    } else {
+        if (live != false) {
+            $('#live p i').removeClass('blink-2').addClass('notLive');
+            $('#live p span').html('Off Air');
+        }
+    }
+}
+
 function coverLoop(song_url, station_img) {
     setTimeout(function () {
-        getCover(song_url, station_img)
-        coverLoop(song_url, station_img)
+
+        getCover(song_url, station_img);
+        coverLoop(song_url, station_img);
     }, 2000)
 }
 
 function getCover(song_url, station_img) {
     $.getJSON(song_url, function (current) {
+        getLiveStatus(current);
         if (song_str != (current.title + " " + current.artist.name))  {
             song_str = current.title + " " + current.artist.name
             $.getJSON(getItunesUrl(current.title, current.artist.name), function (song) {

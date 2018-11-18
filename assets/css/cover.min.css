@@ -1,0 +1,11 @@
+@charset "UTF-8";/*!
+ * Copyright © 2018 Valentin Sickert
+ * This work is free. You can redistribute it and/or modify it under the
+ * terms of the Do What The Fuck You Want To Public License, Version 2,
+ * as published by Sam Hocevar. See the LICENSE file or http://www.wtfpl.net/
+ * for more details.
+ *//*!
+ * Created by: Valentin Sickert
+ * Date: 18.11.18 22:03
+ * Project: cover-display
+ */@-webkit-keyframes blink-2{0{color:#ff4c4c}50%{color:#e26565}100%{color:#b18e8e}}@keyframes blink-2{0{color:#ff4c4c}50%{color:#e26565}100%{color:#b18e8e}}#live{font-family:'Arial',sans-serif;padding:0;overflow:hidden;background:#34bf49;color:white;letter-spacing:2px;font-weight:bold}#live.hidden{visibility:hidden}#live.in{position:absolute;bottom:4px}#live.bottom{margin-top:-5px}#live p{padding:.5rem;white-space:nowrap;transition:none}#live .blink-2{-webkit-animation:blink-2 1s .2s linear infinite alternate;animation:blink-2 1s linear .2s infinite alternate}#live .notLive{color:#9e9e9e}

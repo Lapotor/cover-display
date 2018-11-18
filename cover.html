@@ -16,6 +16,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Valentin Sickert">
+    <link rel="stylesheet" type="text/css" href="./assets/css/cover.min.css">
+    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css">
     <title>Title</title>
 
     <style>
@@ -26,7 +28,11 @@
     </style>
 </head>
 <body>
-<img id="image" src="" alt="">
+<div style="position: relative;">
+    <img id="image" src="" alt="">
+    <div id="live" class="hidden in"><p><i class="fas fa-circle notLive"></i>&nbsp;&nbsp;<span>Off Air</span></p></div>
+</div>
+
 
 
 <script src="./assets/js/jquery-3.3.1.min.js" type="text/javascript"></script>
@@ -35,6 +41,8 @@
     let station = $_GET('station');
     let station_url = "https://api.laut.fm/station/" + station;
     let song_url = "https://api.laut.fm/station/" + station + "/current_song";
+    let show_onair = $_GET('onair');
+    let onair_display = $_GET('position');
 
     let width = $_GET('width');
     let height;
@@ -44,8 +52,19 @@
         height = $_GET('height');
     }
 
+    let live = false;
     let song_str;
     let station_img_url;
+
+    $('#live').css('width', width);
+
+    if (show_onair == 'true') {
+        $('#live').removeClass('hidden');
+        if (onair_display == 'bottom'){
+            $('#live').removeClass('in').addClass('bottom')
+        }
+    }
+
 
     $.getJSON(station_url, function (station) {
         station_img_url = station.images.station;
@@ -53,11 +72,6 @@
         getCover(song_url, station_img_url);
         coverLoop(song_url, station_img_url);
     });
-
-    // getItunesUrl(current.title, current.artist.name)
-    // song.results[0].artworkUrl100
-
-
 </script>
 </body>
 </html>
